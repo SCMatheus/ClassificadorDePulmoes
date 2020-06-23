@@ -47,7 +47,7 @@
                         error: function(data){
                             console.log("error");
                             console.log(data);
-                            $("#resultado").text("Ocorreu um erro na conecção com o servidor de classificação")
+                            $("#resultado").text("Ocorreu um erro na conexão com o servidor de classificação")
                             $('#resultado').css("display", "block")
                             $('#resultado').addClass("alert-danger")
                         }
