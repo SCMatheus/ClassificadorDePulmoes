@@ -7,7 +7,6 @@
 #	python simple_request.py
 
 # import the necessary packages
-from PIL import Image
 import cv2
 from keras.models import load_model
 import numpy as np

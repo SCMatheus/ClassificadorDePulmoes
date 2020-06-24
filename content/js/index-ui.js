@@ -34,12 +34,10 @@
                             console.log(data);
                             if (data.predictions.includes("Normal") == true){
                                 $("#resultado").text(data.predictions)
-                                $('#resultado').css("display", "block")
                                 $('#resultado').removeClass("alert-danger")
                                 $('#resultado').addClass("alert-success")
                             }else{
                                 $("#resultado").text(data.predictions)
-                                $('#resultado').css("display", "block")
                                 $('#resultado').removeClass("alert-sucess")
                                 $('#resultado').addClass("alert-danger")
                             }
