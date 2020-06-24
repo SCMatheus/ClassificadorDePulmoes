@@ -1,12 +1,9 @@
-# USAGE
-# Start the server:
-# 	python run_keras_server.py
-# Submit a request via cURL:
-# 	curl -X POST -F image=@dog.jpg 'http://localhost:5000/predict'
-# Submita a request via Python:
-#	python simple_request.py
+# Inicie o servidor:
+# python xRay_server.py
+# Envie uma solicitação via cURL:
+# Submeta uma solicitação
 
-# import the necessary packages
+# importar os pacotes necessários
 import cv2
 from keras.models import load_model
 import numpy as np
@@ -14,16 +11,16 @@ from flask import json
 import flask
 from flask_cors import CORS
 
-# initialize our Flask application and the Keras model
+
+# inicialize nosso aplicativo Flask e o modelo Keras
 app = flask.Flask(__name__)
 CORS(app)
 model = None
 
 def load():
     global model
-	# load the pre-trained Keras model (here we are using a model
-	# pre-trained on ImageNet and provided by Keras, but you can
-	# substitute in your own networks just as easily)
+    # carregar o modelo Keras pré-treinado (aqui estamos usando um modelo
+    # cronstruido e treinado para o problema dos pulmões)
     
     model = load_model("Model_xRay")
 
@@ -33,7 +30,7 @@ def prepare_image(image, target):
     img = img.astype(np.float32)/255.
     img = np.expand_dims(img, axis=0)
     img = np.expand_dims(img, -1)
-    # return the processed image
+    # retorna a imagem processada
     return img
 
 
@@ -49,11 +46,10 @@ def predict():
             filestr  = flask.request.files["image"].read() 
             npimg = np.fromstring(filestr, np.uint8)
             image = cv2.imdecode(npimg, cv2.IMREAD_GRAYSCALE)
-            # Resize it to 224x224 pixels  
-            # (required input dimensions for ResNet) 
+            # Resize da imagem para 64x64 pixels  
+            # (É a dimensão de rentrada exigida pela rede) 
             image = prepare_image(image, target =(64, 64)) 
-  
-            # Predict ! global preds, results     
+      
         
             preds = model.predict(image) 
             
@@ -76,12 +72,11 @@ def predict():
         status=200,
         mimetype='application/json'
     )
-    # return JSON response 
+    # retorna a resposta Json
     return response
   
-
-# if this is the main thread of execution first load the model and
-# then start the server
+# se esse for o principal thread de execução, primeiro carregue o modelo e
+# depois inicie o servidor
 if __name__ == "__main__":
 	print(("* Loading Keras model and Flask starting server..."
 		"please wait until server has fully started"))
