@@ -36,11 +36,19 @@
     width: 70%;
 }
 
+#resultado {
+    text-align: center;
+}
+
 .result {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+}
+
+.result > * {
+    margin-right: 5px;
 }
 
 footer {
